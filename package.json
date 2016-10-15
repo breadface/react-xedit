@@ -1,0 +1,38 @@
+{
+  "name": "react-xedit",
+  "version": "1.0.0",
+  "description": "A simple utility to edit input contents in place",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --display-error-details",
+    "build-dev": "webpack --display-error-details --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/breadface/react-xedit.git"
+  },
+  "keywords": [
+    "react-xeditable",
+    "react-editable",
+    "react-edit",
+    "react-xedit"
+  ],
+  "author": "Omonori Jesmine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/breadface/react-xedit/issues"
+  },
+  "homepage": "https://github.com/breadface/react-xedit#readme",
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0"
+  },
+  "dependencies": {
+    "react": "^15.4.0-rc.4",
+    "react-dom": "^15.4.0-rc.4",
+    "webpack": "^1.13.2"
+  }
+}
