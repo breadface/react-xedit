@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import EditableText from  './components/EditableText'
 
 class App extends Component {
   render() {
     return (
       <div>
-        Welcome to react inline editable
+        <EditableText editMode={true}>This can be edited</EditableText>
       </div>
     )
   }
