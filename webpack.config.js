@@ -1,15 +1,20 @@
-
+var BUILD_DIR = 'build'
 
 module.exports  = {
   entry: [
     './src/main.js'
   ],
   output: {
-    path: 'build',
+    path: BUILD_DIR,
     filename: 'bundle.js'
   },
   resolve: {
     extensions: ['','.js', '.jsx', '.scss']
+  },
+  devServer: {
+    contentBase: BUILD_DIR,
+    colors: true,
+    historyApiFallback: true
   },
   module: {
     loaders: [
