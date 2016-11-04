@@ -65,7 +65,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var node = document.getElementById('appp');
+	var node = document.getElementById('app');
 
 	(0, _reactDom.render)(_react2.default.createElement(_App2.default, null), node);
 
@@ -21449,6 +21449,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _EditableText = __webpack_require__(179);
+
+	var _EditableText2 = _interopRequireDefault(_EditableText);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21472,7 +21476,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Welcome to react inline editable'
+	        _react2.default.createElement(
+	          _EditableText2.default,
+	          { editMode: true },
+	          'This can be edited'
+	        )
 	      );
 	    }
 	  }]);
@@ -21481,6 +21489,125 @@
 	}(_react.Component);
 
 	exports.default = App;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var EditableText = function (_Component) {
+	  _inherits(EditableText, _Component);
+
+	  function EditableText(props) {
+	    _classCallCheck(this, EditableText);
+
+	    var _this = _possibleConstructorReturn(this, (EditableText.__proto__ || Object.getPrototypeOf(EditableText)).call(this, props));
+
+	    _this.handleClick = _this.handleClick.bind(_this);
+	    _this.bindToState = _this.bindToState.bind(_this);
+
+	    var children = props.children;
+
+
+	    _this.state = {
+	      inputValue: children || "",
+	      toggleEdit: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(EditableText, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.setState({ toggleEdit: !this.state.toggleEdit });
+	    }
+	  }, {
+	    key: 'bindToState',
+	    value: function bindToState(prop) {
+	      var _this2 = this;
+
+	      if (!prop) {
+	        throw Error('Props cannot be undefined');
+	      }
+
+	      return {
+	        onChange: function onChange(e) {
+	          e.preventDefault();
+	          _this2.setState(_defineProperty({}, prop, e.target.value));
+	        }
+	      };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+
+	      var _state = this.state;
+	      var inputValue = _state.inputValue;
+	      var toggleEdit = _state.toggleEdit;
+
+	      if (this.props.editMode) {
+	        if (toggleEdit) {
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement('textarea', _extends({
+	              type: 'text',
+	              value: inputValue
+	            }, this.bindToState('inputValue'))),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: function onClick(e) {
+	                  return _this3.handleClick();
+	                } },
+	              'save'
+	            )
+	          );
+	        } else {
+	          return _react2.default.createElement('span', {
+	            onClick: function onClick(e) {
+	              return _this3.handleClick();
+	            },
+	            children: inputValue
+	          });
+	        }
+	      }
+
+	      return _react2.default.createElement('span', { children: inputValue });
+	    }
+	  }]);
+
+	  return EditableText;
+	}(_react.Component);
+
+	EditableText.defaultProps = {
+	  editMode: false
+	};
+
+	exports.default = EditableText;
 
 /***/ }
 /******/ ]);

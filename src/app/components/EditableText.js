@@ -1,47 +1,18 @@
-// @flow
-
-import React, { Component } from 'react'
-
-type Props = {
-  editMode: boolean,
-  children: string,
-}
-
-type DefaultProps = {
-  editMode: boolean
-}
-
-//TODO: use text area for more lines of text
+import React, { Component, PropTypes } from 'react'
+import EditableModal from './EditableModal'
 
 class EditableText extends Component {
-  props: Props
-  handleClick: () => void
-  bindToState: (prop: string) => {onChange: (e: Object) => void}
-
-  static defaultProps: DefaultProps
-
-  state: {
-    inputValue: string,
-    toggleEdit: boolean
-  }
-
   constructor(props: Props) {
     super(props)
 
-    this.handleClick = this.handleClick.bind(this)
     this.bindToState = this.bindToState.bind(this)
 
     let { children} = props
 
 
     this.state = {
-      inputValue: children || "",
-      toggleEdit: false
+      inputValue: children || ""
     }
-  }
-
-  handleClick() {
-    this.setState({toggleEdit: !this.state.toggleEdit})
   }
 
   bindToState(prop: string) {
@@ -50,7 +21,7 @@ class EditableText extends Component {
     }
 
    return {
-      onChange: (e: Object) => {
+      onChange: e => {
         e.preventDefault()
         this.setState({ [prop]: e.target.value })
       }
@@ -58,25 +29,24 @@ class EditableText extends Component {
   }
 
   render() {
-    let { inputValue, toggleEdit } = this.state
+    let { inputValue } = this.state
+    let { show, onCancel, onSave } = this.props
+
     if (this.props.editMode) {
-      if (toggleEdit) {
-        return (
-          <div>
+      return (
+        <div>
+          <EditableModal
+            isOpen={show}
+            toClose={onCancel}
+          >
             <textarea
               type="text"
               value={inputValue}
               {...this.bindToState('inputValue')}
             />
-            <button onClick={e => this.handleClick()}>save</button>
-          </div>
-        )
-      } else {
-        return <span
-          onClick={e => this.handleClick()}
-          children={inputValue}
-        />
-      }
+          </EditableModal>
+        </div>
+      )
     }
 
     return (
@@ -85,9 +55,17 @@ class EditableText extends Component {
   }
 }
 
+//TODO valid children must be string - validate children
 
 EditableText.defaultProps = {
-  editMode: false
+  editMode: false,
+  show: false
+}
+
+EditableText.propTypes = {
+  editMode: PropTypes.bool,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func
 }
 
 export default EditableText
