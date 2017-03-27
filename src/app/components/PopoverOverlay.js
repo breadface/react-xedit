@@ -12,7 +12,6 @@ class PopoverOverlay extends React.Component {
 
   render() {
     let { content } = this.state
-    console.log(content, 'content')
     let  { setText, toggleShow, title } = this.props
 
     let handleChange = e => {

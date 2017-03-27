@@ -1,6 +1,6 @@
 import React from 'react'
 import  { FormControl } from 'react-bootstrap'
-import EditableField from './EditableField'
+import EditableField from '../EditableField'
 
 
 class EditableText extends React.Component {

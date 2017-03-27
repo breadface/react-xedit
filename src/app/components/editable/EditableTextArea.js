@@ -1,5 +1,5 @@
 import React from 'react'
-import EditableField from './EditableField'
+import EditableField from '../EditableField'
 
 class EditableTextArea extends React.Component {
   constructor(props) {

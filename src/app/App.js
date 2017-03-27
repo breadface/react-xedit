@@ -1,7 +1,7 @@
 import React from 'react'
-import EditableText from './components/EditableText'
-import EditableTextArea from './components/EditableTextArea'
-import EditableSelect from './components/EditableSelect'
+import EditableText from './components/editable/EditableText'
+import EditableTextArea from './components/editable/EditableTextArea'
+import EditableSelect from './components/editable/EditableSelect'
 
 class App extends React.Component {
   render() {
