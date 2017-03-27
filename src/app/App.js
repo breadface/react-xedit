@@ -1,17 +1,17 @@
 import React from 'react'
 import EditableText from './components/EditableText'
 import EditableTextArea from './components/EditableTextArea'
+import EditableSelect from './components/EditableSelect'
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <EditableText
+        <EditableSelect
           editable={true}
-          title="Email"
+          menuOptions={['one', 'two', 'tree', 'four']}
           >
-          Welcome home buddy
-        </EditableText>
+        </EditableSelect>
       </div>
     )
   }
