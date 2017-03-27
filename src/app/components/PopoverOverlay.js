@@ -1,5 +1,5 @@
 import React from 'react'
-import { Popover, Button } from 'react-bootstrap'
+import { Popover, Button, ButtonToolbar, FormGroup } from 'react-bootstrap'
 
 class PopoverOverlay extends React.Component {
   constructor(props) {
@@ -12,7 +12,8 @@ class PopoverOverlay extends React.Component {
 
   render() {
     let { content } = this.state
-    let  { setText, toggleShow } = this.props
+    let  { setText, toggleShow, title } = this.props
+
     let handleChange = e => {
       let content = e.target.value
       this.setState({content})
@@ -21,25 +22,25 @@ class PopoverOverlay extends React.Component {
     return (
       <Popover
         id="popover-trigger-click-root-close"
-        title="Edit content"
+        title={`Enter ${title}`}
       >
-        <div>
-          <input
-            value={content}
-            onChange={handleChange}
-          />
-          <Button
-            bsStyle="primary"
-            bsSize="small"
-            onClick={() => {
-              setText(content)
-              toggleShow()
-          }}><i className="glyphicon glyphicon-ok" /></Button>
-          <Button
-            bsSize="small"
-            onClick={toggleShow}
-            ><i className="glyphicon glyphicon-remove" /></Button>
-        </div>
+        <FormGroup>
+          { this.props.children(content, handleChange) }
+          <ButtonToolbar>
+            <Button
+              bsStyle="primary"
+              bsSize="small"
+              onClick={() => {
+                setText(content)
+                toggleShow()
+            }}><i className="glyphicon glyphicon-ok" /></Button>
+            <Button
+              bsSize="small"
+              onClick={toggleShow}
+              ><i className="glyphicon glyphicon-remove" />
+            </Button>
+          </ButtonToolbar>
+        </FormGroup>
       </Popover>
     )
   }

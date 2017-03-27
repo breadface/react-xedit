@@ -1,37 +1,41 @@
 import React from 'react'
-import { OverlayTrigger } from 'react-bootstrap'
 import PopoverOverlay from './PopoverOverlay'
 import CustomOverlay from './CustomOverlay'
 
-class EditableTextField extends React.Component {
+class EditableField extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      editMode: this.props.editable || false,
-      text: this.props.children || "",
       show: false
     }
   }
 
   render() {
-    let { editMode, text, show } = this.state
+    let { show } = this.state
+    let { setText, text, children, title } = this.props
 
-    let setText = (text) => this.setState({text})
     let toggleShow = () => this.setState({show: !show})
 
-    if(editMode)
+    let header = title ? title : "text"
+
+    if(this.props.editable)
       return (
         <div>
-          <span onClick={toggleShow}>{text}</span>
+          <span
+            onClick={toggleShow}
+            children={text}
+          />
           <CustomOverlay
             show={show}
             >
             <PopoverOverlay
+              title={header}
               content={text}
               toggleShow={toggleShow}
               setText={setText}
-            />
+            >{ (content, handleChange) => children(content, handleChange) }
+            </PopoverOverlay>
           </CustomOverlay>
         </div>
       )
@@ -40,4 +44,4 @@ class EditableTextField extends React.Component {
   }
 }
 
-export default EditableTextField
+export default EditableField
