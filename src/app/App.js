@@ -1,36 +1,15 @@
-import React, { Component } from 'react'
-import EditableText from  './components/EditableText'
+import React from 'react'
+import EditableTextField from './components/EditableTextField'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.handleClick = this.handleClick.bind(this)
-    this.closeModal = this.closeModal.bind(this)
-
-    this.state = {
-      showModal: false
-    }
-  }
-
-  handleClick(e) {
-    e.preventDefault()
-    this.setState({showModal: true})
-  }
-
-  closeModal() {
-    this.setState({showModal: false})
-  }
-
+class App extends React.Component {
   render() {
     return (
       <div>
-        <EditableText
-          editMode={true}
-          show={this.state.showModal}
-          onCancel={this.closeModal}
-        />
-          <span onClick={this.handleClick}>This can be edited</span>
+        <EditableTextField
+          editable={true}
+          >
+          Welcome home buddy
+        </EditableTextField>
       </div>
     )
   }
