@@ -1,6 +1,6 @@
 import React from 'react'
-import PopoverOverlay from './PopoverOverlay'
-import CustomOverlay from './CustomOverlay'
+import PopoverOverlay from './utils/PopoverOverlay'
+import CustomOverlay from './utils/CustomOverlay'
 
 class EditableField extends React.Component {
   constructor(props) {

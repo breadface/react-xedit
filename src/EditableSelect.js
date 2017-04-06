@@ -1,6 +1,6 @@
 import React from 'react'
 import { DropdownButton, MenuItem } from 'react-bootstrap'
-import EditableField from '../EditableField'
+import EditableField from './EditableField'
 
 class EditableSelect extends React.Component {
   constructor(props) {
