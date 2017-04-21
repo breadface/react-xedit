@@ -9,7 +9,7 @@ Light weight custom popover
 `npm install --save react-xedit or yarn add react-xedit`
 
 To use
-```
+```javascript
   import React from 'react'
   import { EditableText, EditableCheckBox } from 'react-xedit'
 
