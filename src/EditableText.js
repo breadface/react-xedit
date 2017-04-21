@@ -4,6 +4,10 @@ import WrapTextState from './TextStateWrapper'
 //@flow
 
 class EditableText extends Component {
+  props: {
+    editable: boolean
+  }
+
   state: {
     text: string,
     show: boolean
@@ -26,6 +30,9 @@ class EditableText extends Component {
     let handleClick = () => {
       this.setState({show: !this.state.show})
     }
+
+    if(!this.props.editable)
+      return <span>{this.props.children}</span>
 
     return (
       <Popover

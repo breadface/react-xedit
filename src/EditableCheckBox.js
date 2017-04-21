@@ -48,13 +48,17 @@ class WrapCheckBoxState extends Component {
 //@flow
 
 class EditableCheckBox extends Component {
+  props: {
+    editable: boolean
+  }
+
   state: {
     text: string,
     show: boolean
   }
 
   state = {
-    items: this.props.options.map(item => ({name: item, checked: true})),
+    items: this.props.options,
     show: false
   }
 
@@ -79,6 +83,13 @@ class EditableCheckBox extends Component {
       />
     )
 
+    if(!this.props.editable)
+      return (
+        <div>
+          {this.props.options.map((item, index) => <div key={index} children={item.name}/>)}
+        </div>
+      )
+
     return (
       <Popover
         show={this.state.show}
@@ -91,7 +102,7 @@ class EditableCheckBox extends Component {
             editableItems={this.state.items}
             >
               { (editedItems, onChange) => {
-                return this.props.options.map(item => ({name: item, checked: true}))
+                return this.props.options
                   .map((items, index) => {
                   return(
                     <div key={index}>

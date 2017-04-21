@@ -5,6 +5,10 @@ import WrapTextState from './TextStateWrapper'
 //@flow
 
 class EditableSelect extends Component {
+  props: {
+    editable: boolean
+  }
+
   state: {
     text: string,
     show: boolean
@@ -28,6 +32,9 @@ class EditableSelect extends Component {
       this.setState({show: !this.state.show})
     }
 
+    if(!this.props.editable)
+      return <span>{this.props.options[0]}</span>
+
     return (
       <Popover
         show={this.state.show}
@@ -39,16 +46,17 @@ class EditableSelect extends Component {
             setTextValue={setTextValue}
             editableText={this.state.text}
             >
-              { (value, onChange) => {
-                return (
-                  <select value={value} onChange={onChange}>
-                    {
-                      this.props.options.map((value,  index) => {
-                        return <option value={value} key={index}>{value}</option>
-                      })
-                    }
-                  </select>
-                )
+              {
+                (value, onChange) => {
+                  return (
+                    <select value={value} onChange={onChange}>
+                      {
+                        this.props.options.map((value,  index) => {
+                          return <option value={value} key={index}>{value}</option>
+                        })
+                      }
+                    </select>
+                  )
               } }
           </WrapTextState>
       </Popover>
