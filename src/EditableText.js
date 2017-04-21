@@ -1,35 +1,24 @@
-import React from 'react'
-import  { FormControl } from 'react-bootstrap'
+import React, { Component } from 'react'
 import EditableField from './EditableField'
 
+//@flow
 
-class EditableText extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      content: this.props.children
-    }
+class EditableText extends Component {
+  state = {
+    text: this.props.children
   }
 
   render() {
-    let { editable } = this.props
-    let { content } = this.state
+    let setTextValue = text => {
+      this.setState({text})
+    }
 
     return (
       <EditableField
-        editable={editable}
-        text={content}
-        setText={content => this.setState({content})}
-      >{(content, handleChange) => {
-        return (
-          <FormControl
-            type="text"
-            value={content}
-            onChange={handleChange}
-          />
-        )
-      }}
+        text={this.state.text}
+        setTextValue={setTextValue}
+      >
+        { (value, onChange) => <input type="text" onChange={onChange} value={value} /> }
       </EditableField>
     )
   }

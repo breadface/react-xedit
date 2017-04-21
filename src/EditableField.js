@@ -1,46 +1,76 @@
-import React from 'react'
-import PopoverOverlay from './utils/PopoverOverlay'
-import CustomOverlay from './utils/CustomOverlay'
+//@flow
+import React,  { Component, Element } from 'react'
+import Popover from './utils/Popover'
 
-class EditableField extends React.Component {
-  constructor(props) {
-    super(props)
+class WrapTextState extends Component {
+  props: {
+    onHide: () => void,
+    setTextValue: (text: string) => void,
+    editableText: string,
+    children: (text: string, handleChange: (e: any) => void) => Element<any>
+  }
 
-    this.state = {
-      show: false
-    }
+  state = {
+    text: this.props.editableText
   }
 
   render() {
-    let { show } = this.state
-    let { setText, text, children, title } = this.props
+    let { onHide, children } = this.props
 
-    let toggleShow = () => this.setState({show: !show})
+    let handleChange = (e) => {
+      let { value } = e.target
+      this.setState({text: value})
+    }
 
-    let header = title ? title : "text"
+    let handleSave = () => {
+      this.props.setTextValue(this.state.text)
+      this.props.onHide()
+    }
 
-    if(this.props.editable)
-      return (
-        <div>
-          <span
-            onClick={toggleShow}
-            children={text}
+    return (
+      <div>
+        { children(this.state.text, handleChange) }
+        <button onClick={handleSave}>ok</button>
+        <button onClick={onHide}>cancel</button>
+      </div>
+    )
+  }
+}
+
+
+class EditableField extends Component {
+  state: {
+    show: boolean
+  }
+
+  state = {
+    show: false
+  }
+
+  render() {
+    let { text, setTextValue } = this.props
+    let onHide = () => {
+      this.setState({show: false})
+    }
+
+    let handleClick = () => {
+      this.setState({show: !this.state.show})
+    }
+
+    return (
+      <Popover
+        show={this.state.show}
+        offset={20}
+        text={<span onClick={handleClick}>{this.props.text}</span>}
+        >
+          <WrapTextState
+            onHide={onHide}
+            setTextValue={setTextValue}
+            editableText={text}
+            children={ (text, handleChange) => this.props.children(text, handleChange) }
           />
-          <CustomOverlay
-            show={show}
-            >
-            <PopoverOverlay
-              title={header}
-              content={text}
-              toggleShow={toggleShow}
-              setText={setText}
-            >{ (content, handleChange) => children(content, handleChange) }
-            </PopoverOverlay>
-          </CustomOverlay>
-        </div>
-      )
-
-    return text
+      </Popover>
+    )
   }
 }
 

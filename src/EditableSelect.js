@@ -1,47 +1,34 @@
-import React from 'react'
-import { DropdownButton, MenuItem } from 'react-bootstrap'
+import React, { Component } from 'react'
 import EditableField from './EditableField'
 
-class EditableSelect extends React.Component {
-  constructor(props) {
-    super(props)
+//@flow
 
-    this.state = {
-      selectedKey: 0
-    }
+class EditableSelect extends Component {
+  state = {
+    text: this.props.options[0]
   }
 
   render() {
-    let { editable, title, menuOptions } = this.props
-    let { selectedKey } = this.state
-
-    let optionList = menuOptions.map((item, index) => {
-      return (
-        <MenuItem
-          key={index}
-          eventKey={index}
-          children={item}
-        />
-      )
-    })
+    let setTextValue = text => {
+      this.setState({text})
+    }
 
     return (
       <EditableField
-        editable={editable}
-        text={menuOptions[selectedKey]}
-        title={title}
-        setText={selectedKey => this.setState({selectedKey})}
-      >{(selectedKey, handleChange) => {
-        return (
-          <DropdownButton
-            title={Number(selectedKey)? menuOptions[selectedKey]: selectedKey}
-            id="dropdown-menu"
-            onSelect={handleChange}
-            >
-              { optionList }
-          </DropdownButton>
-        )
-      }}
+        text={this.state.text}
+        setTextValue={setTextValue}
+      >
+        { (value, onChange) => {
+          return (
+            <select value={value} onChange={onChange}>
+              {
+                this.props.options.map((value,  index) => {
+                  return <option value={value} key={index}>{value}</option>
+                })
+              }
+            </select>
+          )
+        } }
       </EditableField>
     )
   }
