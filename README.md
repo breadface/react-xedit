@@ -6,7 +6,7 @@ Light weight custom popover
 
 # Quick Start
 
-`npm install --save react-xedit or yarn add react-xedit`
+`npm install --save react-xedit` or `yarn add react-xedit`
 
 To use
 ```javascript
@@ -14,9 +14,9 @@ To use
   import { EditableText, EditableCheckBox } from 'react-xedit'
 
   let options = [
-    { name: 'guacamole', checked={true}},
-    { name: 'burretos', checked={false}},
-    { name: 'sushi', checked={true}}
+    { name: 'guacamole', checked: true},
+    { name: 'burretos', checked: false},
+    { name: 'sushi', checked: true}
 
   ]
 
@@ -35,3 +35,10 @@ To use
   }
 
 ```
+
+# Contributing
+* Fork this repository & clone locally.
+* Create an upstream remote and sync your local copy before you branch.
+* Branch for each separate piece of work.
+* Push to your origin repository.
+* Create a new Pull Request.
